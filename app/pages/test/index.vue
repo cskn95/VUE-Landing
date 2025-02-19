@@ -1,123 +1,54 @@
 <template>
-    <!-- Ana container: tam ekran yüksekliği ve varsayılan scroll gizli -->
-    <div class="h-screen overflow-hidden">
-      <!-- v-for ile belirlenen section sayısı kadar bölüm oluşturuluyor -->
-      <section
-        v-for="(item, index) in sectionsCount"
-        :key="index"
-        class="h-screen flex items-center justify-center text-4xl"
-      >
-        Section {{ index + 1 }}
-      </section>
+  <div v-auto-animate :class="{'translate-y-[-100%]': isScrolled}" class="fixed top-0 left-0 w-full h-screen bg-blue-500 flex justify-center items-center transition-transform duration-500 ease-out">
+    <div class="text-center text-white">
+      <h1 class="text-4xl font-bold">Landing Page İçeriği</h1>
+      <p class="mt-4">Sayfa kaydırıldığında bu bölüm kaybolacak ve yer açılacak.</p>
     </div>
-  </template>
-  
-  <script setup>
-  defineOptions({
-    name: 'TestIndexPage'
-  })
-  import { ref, onMounted, onBeforeUnmount } from 'vue'
-  
-  // Toplam section sayısı
-  const sectionsCount = 4
-  
-  // Hangi section'ın görüntülendiğini takip eden reaktif değişken
-  const currentSectionIndex = ref(0)
-  
-  // Scroll işlemi sırasında yeni event tetiklemeyi engellemek için bayrak
-  const isScrolling = ref(false)
-  
-  // DOM'dan alınacak section referanslarını saklamak için
-  let sections = []
-  
-  // Mobilde dokunmatik işlemler için başlangıç ve bitiş koordinatları
-  const touchStartY = ref(null)
-  const touchEndY = ref(null)
-  
-  /* --- Masaüstü (Mouse Wheel) İşlemleri --- */
-  // Mouse wheel event handler
-  const handleWheel = (e) => {
-    e.preventDefault() // Tarayıcının varsayılan scroll davranışını engeller
-  
-    if (isScrolling.value) return
-  
-    isScrolling.value = true
-  
-    // e.deltaY pozitifse kullanıcı aşağı kaydırıyor, negatifse yukarı kaydırıyor
-    if (e.deltaY > 0) {
-      goToSection(currentSectionIndex.value + 1)
-    } else {
-      goToSection(currentSectionIndex.value - 1)
-    }
-  
-    // Geçiş sırasında 1 saniye boyunca yeni event'ları engelle
-    setTimeout(() => {
-      isScrolling.value = false
-    }, 1000)
+  </div>
+
+  <div class="mt-[100vh] h-screen p-8">
+    <!-- Landing Page içeriği burada olacak -->
+    <h2 class="text-3xl font-semibold">Landing Page</h2>
+    <p>Burada sayfa içeriği olacak.</p>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+export default {
+  name: 'TestIndex',
+  setup() {
+    const isScrolled = ref(false);
+
+    const handleScroll = () => {
+      // Sayfa kaydırıldığında, 50px'den fazla kaydırılmışsa div kaybolur
+      isScrolled.value = window.scrollY > 50;
+    };
+
+    const handleTouchMove = (event) => {
+      // Sayfa kaydırıldığında, dokunmatik olay ile kaydırma yapılırsa
+      const touch = event.touches[0];
+      isScrolled.value = touch.clientY > 50;
+    };
+
+    onMounted(() => {
+      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleTouchMove);
+    });
+
+    return {
+      isScrolled
+    };
   }
-  
-  /* --- Mobil (Dokunmatik/Swipe) İşlemleri --- */
-  // Dokunma başladığında Y koordinatını al
-  const handleTouchStart = (e) => {
-    touchStartY.value = e.changedTouches[0].screenY
-  }
-  
-  // Dokunma bittiğinde Y koordinatını alıp swipe işlemini gerçekleştir
-  const handleTouchEnd = (e) => {
-    touchEndY.value = e.changedTouches[0].screenY
-    handleSwipe()
-  }
-  
-  // Swipe hareketini algılayan fonksiyon
-  const handleSwipe = () => {
-    if (touchStartY.value === null || touchEndY.value === null) return
-  
-    const diff = touchStartY.value - touchEndY.value
-  
-    // Minimum swipe mesafesi (örneğin 50 piksel) kontrolü
-    if (Math.abs(diff) > 25) {
-      if (isScrolling.value) return
-      isScrolling.value = true
-  
-      if (diff > 0) {
-        // Yukarı kaydırma: sonraki section'a geç (parmak yukarı kaydırıldı)
-        goToSection(currentSectionIndex.value + 1)
-      } else {
-        // Aşağı kaydırma: önceki section'a geç
-        goToSection(currentSectionIndex.value - 1)
-      }
-  
-      setTimeout(() => {
-        isScrolling.value = false
-      }, 1000)
-    }
-  
-    // Değerleri sıfırla
-    touchStartY.value = null
-    touchEndY.value = null
-  }
-  
-  /* --- Ortak Fonksiyon --- */
-  // Belirtilen index'teki section'a yumuşak geçiş sağlayan fonksiyon
-  const goToSection = (index) => {
-    if (index < 0 || index >= sections.length) return
-    currentSectionIndex.value = index
-    sections[index].scrollIntoView({ behavior: 'smooth' })
-  }
-  
-  // Component DOM'a eklendiğinde event listener'ları ekle
-  onMounted(() => {
-    sections = document.querySelectorAll('section')
-    window.addEventListener('wheel', handleWheel, { passive: false })
-    window.addEventListener('touchstart', handleTouchStart, { passive: true })
-    window.addEventListener('touchend', handleTouchEnd, { passive: false })
-  })
-  
-  // Component yok edilmeden önce event listener'ları kaldır
-  onBeforeUnmount(() => {
-    window.removeEventListener('wheel', handleWheel)
-    window.removeEventListener('touchstart', handleTouchStart)
-    window.removeEventListener('touchend', handleTouchEnd)
-  })
-  </script>
-  
+}
+</script>
+
+<style scoped>
+/* Scoped stiller burada gerekmez çünkü TailwindCSS kullanıyoruz */
+</style>

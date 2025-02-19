@@ -11,6 +11,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/eslint',
     '@nuxt/icon',
+    '@formkit/auto-animate/nuxt',
+    //['nuxt-lucide-icons', {namePrefix: 'Icon'}],
     ['@nuxtjs/google-fonts', { families: { Montserrat: true, Inter: true} }],
   ],
   vite: {
@@ -19,3 +21,12 @@ export default defineNuxtConfig({
     },
   },
 })
+
+/*<ParticlesBg
+class="absolute inset-0 z-[1] h-full"
+:ease="100"
+:quantity="200"
+:staticity="10"
+:color="'#000'"
+refresh
+/>*/
