@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@formkit/auto-animate/nuxt',
     //['nuxt-lucide-icons', {namePrefix: 'Icon'}],
     ['@nuxtjs/google-fonts', { families: { Montserrat: true, Inter: true} }],
+    '@element-plus/nuxt',
   ],
   vite: {
     server: {

@@ -28,11 +28,11 @@ const itemsDrop = [
 </script>
 
 <template>
-  <header class="bg-gradient-to-r from-[rgba(168,85,247,0.30)] to-[rgba(59,130,246,0.30)]  top-0 flex items-center lg:px-72 lg:py-5 py-5 px-5 lg:min-w-[1024px]">
+  <header class="bg-white top-0 flex items-center lg:px-72 lg:py-5 py-5 px-5 lg:min-w-[1024px]">
     <div>
       <NuxtLink to="/">
         <NuxtImg
-          src="/logo/MagazaPro_Dark.png"
+          src="/logo/MagazaPro_light.png"
           sizes="150px lg:200px"
         />
       </NuxtLink>
@@ -44,11 +44,11 @@ const itemsDrop = [
           v-for="item in items"
           :key="item.label"
           :to="item.to"
-          class="text-slate-300 font-Montserrat font-normal link-with-underline"
+          class="text-slate-500 font-Montserrat font-normal link-with-underline"
         >
           {{ item.label }}
         </NuxtLink>
-        <UButton size="lg" class="text-white font-Montserrat font-normal bg-blue-900 bg-opacity-80 hover:bg-opacity-100 hover:bg-blue-500">
+        <UButton size="lg" class="text-white font-Montserrat font-normal bg-slate-500 bg-opacity-80 hover:bg-opacity-100 hover:bg-slate-700">
           Giriş Yap
         </UButton>
       </div>
@@ -75,7 +75,7 @@ const itemsDrop = [
   left: 0;
   width: 0%;
   height: 2px;
-  background-color: white;
+  background-color: #64748b;
   transition: width 0.3s ease, left 0.3s ease;
 }
 
