@@ -28,7 +28,7 @@ const itemsDrop = [
 </script>
 
 <template>
-  <header class="bg-white top-0 flex items-center lg:px-72 lg:py-5 py-5 px-5 lg:min-w-[1024px]">
+  <header class="bg-white top-0 flex items-center lg:px-48 lg:py-5 py-5 px-5 lg:min-w-[1024px]">
     <div>
       <NuxtLink to="/">
         <NuxtImg
@@ -54,7 +54,7 @@ const itemsDrop = [
       </div>
       <!-- Mobil menü -->
       <UDropdown :items="itemsDrop" mode="click" :popper="{ placement: 'bottom-start' }" class="lg:hidden z-50">
-        <UButton color="violet" size="xl" class="text-white font-Montserrat font-normal bg-opacity-80">
+        <UButton size="xl" class="text-white bg-slate-500 font-Montserrat font-normal bg-opacity-80">
           <Icon name="lucide:align-justify" size="32px"/>
         </UButton>
       </UDropdown>
