@@ -4,7 +4,7 @@
     <p class="max-w-[700px] text-slate-500 text-lg pt-7">Sektörünüzde öne çıkmak ve rekabette fark yaratmak için güçlü bir satış yönetimi kilit rol oynar. Mağaza Pro ile perakende satış sürecinizi ve mağaza operasyonlarınızı belirli bir standarda oturtarak optimize edebilirsiniz</p>
 
     <div class="flex items-center justify-center pt-7 gap-5">
-      <el-card style="max-width: 200px; height: 300px;">
+      <el-card class="card-hover" style="max-width: 200px; height: 300px;">
         <template #header>
           <div class="card-header font-Montserrat flex flex-col">
             <Icon name="lucide:package-search" size="24"></Icon>
@@ -16,7 +16,7 @@
 
       <el-divider direction="vertical" style="height: 250px;"/>
       
-      <el-card style="max-width: 200px; height: 300px;">
+      <el-card class="card-hover" style="max-width: 200px; height: 300px;">
         <template #header>
           <div class="card-header font-Montserrat flex flex-col">
             <Icon name="lucide:shopping-cart" size="24"></Icon>
@@ -28,7 +28,7 @@
 
       <el-divider direction="vertical" style="height: 250px;"/>
 
-      <el-card style="max-width: 200px; height: 300px;">
+      <el-card class="card-hover" style="max-width: 200px; height: 300px;">
         <template #header>
           <div class="card-header font-Montserrat flex flex-col">
             <Icon name="lucide:clipboard-list" size="24"></Icon>
@@ -42,7 +42,7 @@
     <el-divider style="max-width: 600px;"/>
 
     <div class="flex items-center justify-center gap-5">
-      <el-card style="max-width: 200px; height: 275px;">
+      <el-card class="short-card-hover" style="max-width: 200px; height: 275px;">
         <template #header>
           <div class="card-header font-Montserrat flex flex-col">
             <Icon name="lucide:receipt-text" size="24"></Icon>
@@ -54,7 +54,7 @@
 
       <el-divider direction="vertical" style="height: 250px;"/>
 
-      <el-card style="max-width: 200px; height: 275px;">
+      <el-card class="short-card-hover" style="max-width: 200px; height: 275px;">
         <template #header>
           <div class="card-header font-Montserrat flex flex-col">
             <Icon name="lucide:chart-line" size="24"></Icon>
@@ -72,5 +72,13 @@
 </script>
 
 <style>
+.card-hover:hover {
+  max-width: 225px !important;
+  height: 325px !important;
+}
 
+.short-card-hover:hover {
+  max-width: 225px !important;
+  height: 300px !important;
+}
 </style>
